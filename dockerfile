@@ -1,11 +1,13 @@
-FROM gcr.io/tetratelabs/color-app:1.0.0
-
-
+FROM node:12-alpine
 
 WORKDIR /usr/src/app
-COPY node_modules .
-COPY package.json .
-COPY app.js .
-COPY index.js views/index.js
+COPY package*.json ./
+RUN npm ci --only=production
 
-CMD node app.js
+COPY . .
+
+RUN npm prune --production
+
+EXPOSE 3000
+
+CMD [ "node", "app.js"]
