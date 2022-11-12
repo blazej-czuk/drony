@@ -31,7 +31,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: gcr.io/tetratelabs/color-app:1.0.0
+        image: blazejczuk/drony:0.1
         ports:
         - containerPort: 3000
         env:
@@ -92,7 +92,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: gcr.io/tetratelabs/color-app:1.0.0
+        image: blazejczuk/drony:0.1
         ports:
         - containerPort: 3000
         env:
@@ -152,7 +152,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: gcr.io/tetratelabs/color-app:1.0.0
+        image: blazejczuk/drony:0.1
         ports:
         - containerPort: 3000
         env:
@@ -212,7 +212,7 @@ spec:
               - all
           privileged: false
           readOnlyRootFilesystem: true
-        image: gcr.io/tetratelabs/color-app:1.0.0
+        image: blazejczuk/drony:0.1
         ports:
         - containerPort: 3000
         env:
