@@ -1,6 +1,6 @@
 const express = require('express');
 const axios = require('axios')
-const consoleStamp = require('console-stamp')
+const consoleStamp = require('console-stamp');
 consoleStamp(console, {
   format: ':date(dd.mm.yyyy HH:MM:ss.l) :label',
 });
@@ -31,10 +31,14 @@ function getStyleFromEnv() {
 
 async function pingDrone(service) {
   while (true) {
-    await axios.post(`http://${service}:3000/ping-me`, {
-      from: process.env.NAME,
-      message: `Hello from ${process.env.NAME}`,
-    });
+    try {
+      await axios.post(`http://${service}:3000/ping-me`, {
+        from: process.env.NAME,
+        message: `Hello from ${process.env.NAME}`,
+      });
+    } catch (err) {
+      console.error(err)
+    }
     await sleep(2000)
   }
 }
