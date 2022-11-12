@@ -32,6 +32,7 @@ function getStyleFromEnv() {
 async function pingDrone(service) {
   while (true) {
     await axios.post(`http://${service}:3000/ping-me`, {
+      from: process.env.NAME,
       message: `Hello from ${process.env.NAME}`,
     });
     await sleep(2000)
@@ -62,7 +63,7 @@ app.get('*', (req, res) => {
 });
 
 app.post('/ping-me', (req, res) => {
-  console.log(`I've just got pinged! ${req.body.message}`)
+  console.log(`I'm ${process.env.NAME} and I've just got pinged by ${req.body.from}!`)
   res.sendStatus(200);
 });
 
