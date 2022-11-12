@@ -1,0 +1,233 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron1
+spec:
+  selector:
+    matchLabels:
+      app: dron1
+  template:
+    metadata:
+      labels:
+        app: dron1
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/tetratelabs/color-app:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BG_COLOR
+          value: "blue"
+        - name: drony
+          value: dron2,dron3,dron4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron1
+spec:
+  type: ClusterIP
+  selector:
+    app: dron1
+  ports:
+  - name: grpc
+    port: 3000
+    targetPort: 3000
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron2
+spec:
+  selector:
+    matchLabels:
+      app: dron2
+  template:
+    metadata:
+      labels:
+        app: dron2
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/tetratelabs/color-app:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BG_COLOR
+          value: "blue"
+        - name: drony
+          value: "dron1,dron3,dron4"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron2
+spec:
+  type: ClusterIP
+  selector:
+    app: dron2
+  ports:
+  - name: grpc
+    port: 3000
+    targetPort: 3000
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron3
+spec:
+  selector:
+    matchLabels:
+      app: dron3
+  template:
+    metadata:
+      labels:
+        app: dron3
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/tetratelabs/color-app:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BG_COLOR
+          value: "orange"
+        - name: drony
+          value: "dron1,dron2,dron4"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron3
+spec:
+  type: ClusterIP
+  selector:
+    app: dron3
+  ports:
+  - name: grpc
+    port: 3000
+    targetPort: 3000
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron3
+spec:
+  selector:
+    matchLabels:
+      app: dron4
+  template:
+    metadata:
+      labels:
+        app: dron4
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: gcr.io/tetratelabs/color-app:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BG_COLOR
+          value: "orange"
+        - name: drony
+          value: "dron1,dron2,dron3"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron4
+spec:
+  type: ClusterIP
+  selector:
+    app: dron4
+  ports:
+  - name: grpc
+    port: 3000
+    targetPort: 3000
