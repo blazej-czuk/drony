@@ -1,5 +1,9 @@
 const express = require('express');
 const axios = require('axios')
+const consoleStamp = require('console-stamp')
+consoleStamp(console, {
+  format: ':date(dd.mm.yyyy HH:MM:ss.l) :label',
+});
 
 const app = express();
 
@@ -25,12 +29,20 @@ function getStyleFromEnv() {
   };
 }
 
-async function pingDrone() {
+async function pingDrone(service) {
   while (true) {
-    await axios.post('http://dron2:3000/ping-me', {
-      message: 'Seimka od dron1',
+    await axios.post(`http://${service}:3000/ping-me`, {
+      message: `Hello from ${process.env.NAME}`,
     });
-    await sleep(1000)
+    await sleep(2000)
+  }
+}
+
+async function initPing() {
+  await sleep(5000)
+  const drones = process.env.DRONES.split(',')
+  for (const drone of drones) {
+    pingDrone(drone)
   }
 }
 
@@ -50,16 +62,13 @@ app.get('*', (req, res) => {
 });
 
 app.post('/ping-me', (req, res) => {
-  console.log(`I've just got pinged!`)
-  console.log(req.body)
+  console.log(`I've just got pinged! ${req.body.message}`)
   res.sendStatus(200);
 });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`Color App running on port ${port}`);
+  console.log(`${process.env.NAME} running on port ${port}`);
 });
 
-if (process.env.PING === 'true') {
-  pingDrone()
-}
+initPing()

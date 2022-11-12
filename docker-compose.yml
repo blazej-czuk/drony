@@ -7,40 +7,45 @@ services:
     dockerfile: dockerfile
    container_name: dron1
    environment:
+    - NAME="dron1"
     - BG_COLOR="red"
-    - DRONY="dron2,dron3,dron4"
-    - PING=true
+    - DRONES=dron2,dron3,dron4
    ports:
-    - 5051:3000 
-
+    - 5051:3000
 
   dron2:
-   container_name: dron2
    build:
     context: ./
     dockerfile: dockerfile
+   container_name: dron2
    environment:
-    - BG_COLOR="blue"
-    - DRONY="dron1,dron3,dron4"
-    - PING=false
+    - NAME="dron2"
+    - BG_COLOR="green"
+    - DRONES=dron1,dron3,dron4
    ports:
-    - 5052:3000 
+    - 5052:3000
 
-  # dron3:
-  #  image: blazejczuk/drony:0.1
-  #  container_name: doron3
-  #  environment:
-  #   - BG_COLOR="green"
-  #   - DRONY="dron2,dron1,dron4"
-  #  ports:
-  #   - 5053:3000 
+  dron3:
+   build:
+    context: ./
+    dockerfile: dockerfile
+   container_name: dron3
+   environment:
+    - NAME="dron3"
+    - BG_COLOR="blue"
+    - DRONES=dron1,dron2,dron4
+   ports:
+    - 5053:3000
 
-  # dron4:
-  #  image: blazejczuk/drony:0.1
-  #  container_name: doron4
-  #  environment:
-  #   - BG_COLOR="green"
-  #   - DRONY="dron2,dron1,dron3"
-  #  ports:
-  #   - 5054:3000 
+  dron4:
+   build:
+    context: ./
+    dockerfile: dockerfile
+   container_name: dron4
+   environment:
+    - NAME="dron4"
+    - BG_COLOR="yellow"
+    - DRONES=dron1,dron2,dron3
+   ports:
+    - 5054:3000 
 
