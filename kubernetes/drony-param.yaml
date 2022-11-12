@@ -1,0 +1,63 @@
+
+# Copyright
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "$DRON_NAME"
+spec:
+  selector:
+    matchLabels:
+      app: "$DRON_NAME"
+  template:
+    metadata:
+      labels:
+        app: $DRON_NAME
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - all
+          privileged: false
+          readOnlyRootFilesystem: true
+        image: blazejczuk/drony:0.1
+        ports:
+        - containerPort: 3000
+        env:
+        - name: BG_COLOR
+          value: "blue"
+        - name: DRONY
+          value: dron2,dron3,dron4
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "$DRON_NAME"
+spec:
+  type: ClusterIP
+  selector:
+    app: "$DRON_NAME"
+  ports:
+  - name: grpc
+    port: 3000
+    targetPort: 3000

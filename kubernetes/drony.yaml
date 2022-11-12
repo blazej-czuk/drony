@@ -37,7 +37,7 @@ spec:
         env:
         - name: BG_COLOR
           value: "blue"
-        - name: drony
+        - name: DRONY
           value: dron2,dron3,dron4
         resources:
           requests:
@@ -98,7 +98,7 @@ spec:
         env:
         - name: BG_COLOR
           value: "blue"
-        - name: drony
+        - name: DRONY
           value: "dron1,dron3,dron4"
         resources:
           requests:
@@ -158,7 +158,7 @@ spec:
         env:
         - name: BG_COLOR
           value: "orange"
-        - name: drony
+        - name: DRONY
           value: "dron1,dron2,dron4"
         resources:
           requests:
@@ -218,7 +218,7 @@ spec:
         env:
         - name: BG_COLOR
           value: "orange"
-        - name: drony
+        - name: DRONY
           value: "dron1,dron2,dron3"
         resources:
           requests:
