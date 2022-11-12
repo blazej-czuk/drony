@@ -1,12 +1,12 @@
-FROM node:12-alpine
+FROM node:18
 
-WORKDIR /usr/src/app
+WORKDIR /app
+
 COPY package*.json ./
-RUN npm ci --only=production
 
-COPY . .
+RUN npm install
 
-RUN npm prune --production
+COPY . ./
 
 EXPOSE 3000
 

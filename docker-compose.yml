@@ -2,39 +2,45 @@ version: '3.9'
 services:
 
   dron1:
-   image: blazejczuk/drony:0.1
-   container_name: doron1
+   build:
+    context: ./
+    dockerfile: dockerfile
+   container_name: dron1
    environment:
     - BG_COLOR="red"
     - DRONY="dron2,dron3,dron4"
+    - PING=true
    ports:
     - 5051:3000 
 
 
   dron2:
-   image: blazejczuk/drony:0.1
-   container_name: doron2
+   container_name: dron2
+   build:
+    context: ./
+    dockerfile: dockerfile
    environment:
     - BG_COLOR="blue"
     - DRONY="dron1,dron3,dron4"
+    - PING=false
    ports:
     - 5052:3000 
 
-  dron3:
-   image: blazejczuk/drony:0.1
-   container_name: doron3
-   environment:
-    - BG_COLOR="green"
-    - DRONY="dron2,dron1,dron4"
-   ports:
-    - 5053:3000 
+  # dron3:
+  #  image: blazejczuk/drony:0.1
+  #  container_name: doron3
+  #  environment:
+  #   - BG_COLOR="green"
+  #   - DRONY="dron2,dron1,dron4"
+  #  ports:
+  #   - 5053:3000 
 
-  dron4:
-   image: blazejczuk/drony:0.1
-   container_name: doron4
-   environment:
-    - BG_COLOR="green"
-    - DRONY="dron2,dron1,dron3"
-   ports:
-    - 5054:3000 
+  # dron4:
+  #  image: blazejczuk/drony:0.1
+  #  container_name: doron4
+  #  environment:
+  #   - BG_COLOR="green"
+  #   - DRONY="dron2,dron1,dron3"
+  #  ports:
+  #   - 5054:3000 
 

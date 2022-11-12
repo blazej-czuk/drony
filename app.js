@@ -1,14 +1,13 @@
 const express = require('express');
-const morgan = require('morgan');
+const axios = require('axios')
 
 const app = express();
 
-morgan.token('req-headers', function(req,res){
-  return JSON.stringify(req.headers)
- });
-
-app.use(morgan(':method :url :status :req-headers'));
+app.use(express.json())
 app.set('view engine', 'ejs');
+
+const sleep = (delay) =>
+  new Promise((resolve) => setTimeout(resolve, delay))
 
 // gets the style information from the env variables
 // {
@@ -26,10 +25,23 @@ function getStyleFromEnv() {
   };
 }
 
+async function pingDrone() {
+  while (true) {
+    await axios.post('http://dron2:3000/ping-me', {
+      message: 'Seimka od dron1',
+    });
+    await sleep(1000)
+  }
+}
+
 app.get('/version', (req, res) => {
   const pkg = require('./package.json');
   const version = process.env.VERSION || pkg.version;
   res.json({ version });
+});
+
+app.get('/siemka', (req, res) => {
+  res.json({ message: 'siemka' });
 });
 
 app.get('*', (req, res) => {
@@ -37,7 +49,17 @@ app.get('*', (req, res) => {
   res.render('index', { style: styleClass, message });
 });
 
+app.post('/ping-me', (req, res) => {
+  console.log(`I've just got pinged!`)
+  console.log(req.body)
+  res.sendStatus(200);
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Color App running on port ${port}`);
 });
+
+if (process.env.PING === 'true') {
+  pingDrone()
+}
