@@ -24,20 +24,15 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - all
-          privileged: false
-          readOnlyRootFilesystem: true
-        image: blazejczuk/drony:0.1
+        image: blazejczuk/drony:0.4
         ports:
         - containerPort: 3000
         env:
+        - name: NAME
+          value: dron1
         - name: BG_COLOR
-          value: "blue"
-        - name: DRONY
+          value: blue
+        - name: DRONES
           value: dron2,dron3,dron4
         resources:
           requests:
@@ -58,9 +53,8 @@ spec:
   selector:
     app: dron1
   ports:
-  - name: grpc
-    port: 3000
-    targetPort: 3000
+    - protocol: TCP
+      port: 3000
 
 ---
 apiVersion: apps/v1
@@ -85,21 +79,16 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - all
-          privileged: false
-          readOnlyRootFilesystem: true
-        image: blazejczuk/drony:0.1
+        image: blazejczuk/drony:0.4
         ports:
         - containerPort: 3000
         env:
+        - name: NAME
+          value: dron2
         - name: BG_COLOR
-          value: "blue"
-        - name: DRONY
-          value: "dron1,dron3,dron4"
+          value: red
+        - name: DRONES
+          value: dron1,dron3,dron4
         resources:
           requests:
             cpu: 100m
@@ -118,9 +107,8 @@ spec:
   selector:
     app: dron2
   ports:
-  - name: grpc
-    port: 3000
-    targetPort: 3000
+    - protocol: TCP
+      port: 3000
 
 ---
 apiVersion: apps/v1
@@ -145,21 +133,16 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - all
-          privileged: false
-          readOnlyRootFilesystem: true
-        image: blazejczuk/drony:0.1
+        image: blazejczuk/drony:0.4
         ports:
         - containerPort: 3000
         env:
+        - name: NAME
+          value: dron3
         - name: BG_COLOR
-          value: "orange"
-        - name: DRONY
-          value: "dron1,dron2,dron4"
+          value: orange
+        - name: DRONES
+          value: dron1,dron2,dron4
         resources:
           requests:
             cpu: 100m
@@ -178,9 +161,8 @@ spec:
   selector:
     app: dron3
   ports:
-  - name: grpc
-    port: 3000
-    targetPort: 3000
+    - protocol: TCP
+      port: 3000
 
 ---
 apiVersion: apps/v1
@@ -205,21 +187,16 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-              - all
-          privileged: false
-          readOnlyRootFilesystem: true
-        image: blazejczuk/drony:0.1
+        image: blazejczuk/drony:0.4
         ports:
         - containerPort: 3000
         env:
+        - name: NAME
+          value: dron4
         - name: BG_COLOR
-          value: "orange"
-        - name: DRONY
-          value: "dron1,dron2,dron3"
+          value: green
+        - name: DRONES
+          value: dron1,dron2,dron3
         resources:
           requests:
             cpu: 100m
@@ -238,6 +215,5 @@ spec:
   selector:
     app: dron4
   ports:
-  - name: grpc
-    port: 3000
-    targetPort: 3000
+    - protocol: TCP
+      port: 3000
