@@ -54,11 +54,11 @@ async function initPing() {
 app.get('/version', (req, res) => {
   const pkg = require('./package.json');
   const version = process.env.VERSION || pkg.version;
-  res.json({ version });
+  res.status(200).json({ version });
 });
 
 app.get('/siemka', (req, res) => {
-  res.json({ message: 'siemka' });
+  res.status(200).json({ message: 'siemka' });
 });
 
 app.get('*', (req, res) => {
