@@ -8,50 +8,56 @@ spec:
   selector:
     app: dron1
   ports:
-    - name: dron1-3000
+    - name: http
       protocol: TCP
-      port: 8080
+      port: 8081
       targetPort: http-dron1-svc
----
+    
 # kubectl -n default port-forward svc/dron1 8080
 
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: dron2
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: dron2
-#   ports:
-#     - name: http-foo
-#       port: 3003
-#       targetPort: 3003
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron2
+spec:
+  type: ClusterIP
+  selector:
+    app: dron2
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8082
+      targetPort: http-dron2-svc
 
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: dron3
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: dron3
-#   ports:
-#     - name: http-foo
-#       port: 3004
-#       targetPort: 3004
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: dron4
-# spec:
-#   type: ClusterIP
-#   selector:
-#     app: dron4
-#   ports:
-#     - name: http-foo
-#       port: 3005
-#       targetPort: 3005
+# kubectl -n default port-forward svc/dron2 8081
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron3
+spec:
+  type: ClusterIP
+  selector:
+    app: dron3
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8083
+      targetPort: http-dron3-svc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron4
+spec:
+  type: ClusterIP
+  selector:
+    app: dron4
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8084
+      targetPort: http-dron4-svc
