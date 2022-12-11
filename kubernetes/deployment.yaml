@@ -25,10 +25,13 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.4
+        image: blazejczuk/drony:0.6
         ports:
         - containerPort: 3000
           name: http-dron1-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
         env:
         - name: NAME
           value: dron1
@@ -36,8 +39,6 @@ spec:
           value: blue
         - name: DRONES
           value: dron2,dron3,dron4
-        - name: DRONES_NUMBER
-          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -70,10 +71,13 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.4
+        image: blazejczuk/drony:0.6
         ports:
         - containerPort: 3000
           name: http-dron2-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
         env:
         - name: NAME
           value: dron2
@@ -81,8 +85,6 @@ spec:
           value: red
         - name: DRONES
           value: dron1,dron3,dron4
-        - name: DRONES_NUMBER
-          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -115,10 +117,13 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.4
+        image: blazejczuk/drony:0.6
         ports:
         - containerPort: 3000
           name: http-dron3-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
         env:
         - name: NAME
           value: dron3
@@ -126,8 +131,6 @@ spec:
           value: orange
         - name: DRONES
           value: dron1,dron2,dron4
-        - name: DRONES_NUMBER
-          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -160,10 +163,13 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.4
+        image: blazejczuk/drony:0.6
         ports:
         - containerPort: 3000
           name: http-dron4-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
         env:
         - name: NAME
           value: dron4
@@ -171,8 +177,6 @@ spec:
           value: green
         - name: DRONES
           value: dron1,dron2,dron3
-        - name: DRONES_NUMBER
-          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m

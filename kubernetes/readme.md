@@ -9,19 +9,21 @@ kubectl exec $POD_NAME -- echo $DRONES_COUNT
 
 ```
 
-# Parametryzowany deploy
+# ConfigMaps
 ```bash
+https://www.aquasec.com/cloud-native-academy/kubernetes-101/kubernetes-configmap/
+kubectl get configmaps special-config -o yaml
 
-export DRONES_COUNT=4
-kubectl apply -f kubernetes/service.yaml -f kubernetes/deployment.yaml
-k get pods
-k get services
 ```
 ```yaml
 # example manifest:
-env:
-- name: DRONES_COUNT
-    value: ${DRONES_COUNT}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: special-config
+  namespace: default
+data:
+  DRONES_NUMBER: "4"
 #
 ```
 
