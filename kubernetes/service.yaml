@@ -10,10 +10,10 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8081
+      port: 3000
       targetPort: http-dron1-svc
     
-# kubectl -n default port-forward svc/dron1 8080
+# kubectl -n default port-forward svc/dron1 8081:3000
 
 ---
 apiVersion: v1
@@ -27,10 +27,10 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8082
+      port: 3000
       targetPort: http-dron2-svc
 
-# kubectl -n default port-forward svc/dron2 8081
+# kubectl -n default port-forward svc/dron2 8082:3000
 
 ---
 apiVersion: v1
@@ -44,7 +44,7 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8083
+      port: 3000
       targetPort: http-dron3-svc
 
 ---
@@ -59,5 +59,5 @@ spec:
   ports:
     - name: http
       protocol: TCP
-      port: 8084
+      port: 3000
       targetPort: http-dron4-svc

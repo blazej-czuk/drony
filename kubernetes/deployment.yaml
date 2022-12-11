@@ -37,7 +37,7 @@ spec:
         - name: DRONES
           value: dron2,dron3,dron4
         - name: DRONES_NUMBER
-          value: ${DRONES_COUNT}
+          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -82,7 +82,7 @@ spec:
         - name: DRONES
           value: dron1,dron3,dron4
         - name: DRONES_NUMBER
-          value: ${DRONES_COUNT}
+          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -127,7 +127,7 @@ spec:
         - name: DRONES
           value: dron1,dron2,dron4
         - name: DRONES_NUMBER
-          value: ${DRONES_COUNT}
+          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
@@ -172,7 +172,7 @@ spec:
         - name: DRONES
           value: dron1,dron2,dron3
         - name: DRONES_NUMBER
-          value: ${DRONES_COUNT}
+          value: "$(DRONES_COUNT)"
         resources:
           requests:
             cpu: 100m
