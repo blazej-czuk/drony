@@ -58,7 +58,7 @@ app.get('/version', (req, res) => {
 });
 
 app.get('/siemka', (req, res) => {
-  res.status(200).json({ message: 'siemka' });
+  res.status(200).json({ message: `Siemka from ${process.env.NAME}` });
 });
 
 app.get('*', (req, res) => {
