@@ -14,7 +14,7 @@ spec:
     route:
     - destination:
         host: dron2.default.svc.cluster.local
-        subset: v2
+        subset: dron2-service-subset
 --- 
 
 apiVersion: networking.istio.io/v1alpha3
