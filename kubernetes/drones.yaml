@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         app: dron1
+        version: 0.1.0-dron
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -34,6 +35,8 @@ spec:
           value: blue
         - name: DRONES
           value: dron2,dron3,dron4
+        - name: DRONES_COUNT
+          value: ${DRONES_COUNT}
         resources:
           requests:
             cpu: 100m
@@ -41,7 +44,6 @@ spec:
           limits:
             cpu: 200m
             memory: 128Mi
-
 
 ---
 apiVersion: v1
@@ -69,6 +71,7 @@ spec:
     metadata:
       labels:
         app: dron2
+        version: 0.1.0-dron
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -89,6 +92,8 @@ spec:
           value: red
         - name: DRONES
           value: dron1,dron3,dron4
+        - name: DRONES_COUNT
+          value: ${DRONES_COUNT}
         resources:
           requests:
             cpu: 100m
@@ -123,6 +128,7 @@ spec:
     metadata:
       labels:
         app: dron3
+        version: 0.1.0-dron
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -143,6 +149,8 @@ spec:
           value: orange
         - name: DRONES
           value: dron1,dron2,dron4
+        - name: DRONES_COUNT
+          value: ${DRONES_COUNT}
         resources:
           requests:
             cpu: 100m
@@ -177,6 +185,7 @@ spec:
     metadata:
       labels:
         app: dron4
+        version: 0.1.0-dron
     spec:
       serviceAccountName: default
       terminationGracePeriodSeconds: 5
@@ -197,6 +206,8 @@ spec:
           value: green
         - name: DRONES
           value: dron1,dron2,dron3
+        - name: DRONES_COUNT
+          value: ${DRONES_COUNT}
         resources:
           requests:
             cpu: 100m
