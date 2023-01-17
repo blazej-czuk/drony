@@ -34,3 +34,15 @@ data:
 kubectl exec dron1-7c984c46f6-tpvqv -- echo $DRONES_COUNT
 kubectl exec dron1-7c984c46f6-tpvqv -- printenv
 ```
+
+
+# Patch deploymnet dron1
+kubectl patch deployment dron4 --patch "$(cat patch.yaml)"
+
+kubectl patch deploy/dron4 --patch "$(cat patch.yaml)"
+
+kubectl rollout undo deploy/dron4
+
+
+
+

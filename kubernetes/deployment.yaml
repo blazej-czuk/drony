@@ -25,7 +25,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.6
+        image: blazejczuk/drony:headers
         ports:
         - containerPort: 3000
           name: http-dron1-svc
@@ -71,7 +71,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.6
+        image: blazejczuk/drony:headers
         ports:
         - containerPort: 3000
           name: http-dron2-svc
@@ -117,7 +117,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.6
+        image: blazejczuk/drony:headers
         ports:
         - containerPort: 3000
           name: http-dron3-svc
@@ -163,7 +163,7 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:0.6
+        image: blazejczuk/drony:headers
         ports:
         - containerPort: 3000
           name: http-dron4-svc
@@ -184,3 +184,49 @@ spec:
           limits:
             cpu: 200m
             memory: 128Mi
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron5
+spec:
+  selector:
+    matchLabels:
+      app: dron5
+  template:
+    metadata:
+      labels:
+        app: dron5
+        version: 0.1.0-dron
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        image: blazejczuk/drony:0.7  ## BEZ pingowania
+        ports:
+        - containerPort: 3000
+          name: http-dron5-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
+        env:
+        - name: NAME
+          value: dron5
+        - name: BG_COLOR
+          value: yellow
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
+

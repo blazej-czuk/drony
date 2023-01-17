@@ -1,0 +1,45 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vs-dron2
+  namespace: default
+spec:
+  hosts:
+  - dron4
+  http:
+  - match:
+    # - headers:  # pozwólmy się pingować tylko dronowi 3
+    #     dron:
+    #       exact: dron3
+    #   uri:
+    - uri: 
+       prefix: "/ping-me" 
+    route:
+    - destination:
+        host: dron4
+
+# --- 
+
+# apiVersion: networking.istio.io/v1alpha3
+# kind: VirtualService
+# metadata:
+#   name: vs-dron123
+#   namespace: default
+# spec:
+#   hosts:
+#   - dron1
+#   - dron2
+#   - dron3
+#   http:
+#   - match:
+#     # - headers:  # pozwólmy się pingować tylko dronowi 3
+#     #     dron:
+#     #       exact: dron3
+#     #   uri:
+#     - uri: 
+#        prefix: "/ping-me" 
+#     route:
+#     - destination:
+#         host: dron2
+
+# tutaj określamy polityki wewnątrz sieci mesh - gateway będzie miało swoje nadrzędne zasady

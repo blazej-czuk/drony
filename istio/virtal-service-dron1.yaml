@@ -13,8 +13,8 @@ spec:
         prefix: "/siemka"
     route:
     - destination:
-        host: dron2.default.svc.cluster.local
-        subset: dron2-service-subset
+        host: dron1.default.svc.cluster.local
+        subset: dron1-service-subset
 --- 
 
 apiVersion: networking.istio.io/v1alpha3
@@ -39,9 +39,9 @@ metadata:
   namespace: default
 spec:
   host: dron2.default.svc.cluster.local
-  subsets:
-  - name: dron2-service-subset
-    labels:
-      app: dron2
-      version: v1
+  # subsets:
+  # - name: dron2-service-subset
+  #   labels:
+  #     app: dron2
+  #     version: v1
     

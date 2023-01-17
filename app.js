@@ -35,7 +35,13 @@ async function pingDrone(service) {
       await axios.post(`http://${service}:3000/ping-me`, {
         from: process.env.NAME,
         message: `Hello from ${process.env.NAME}`,
-      });
+      },
+      {
+        headers: {
+          dron: process.env.NAME
+        }
+      }
+      ); 
     } catch (err) {
       console.error(err)
     }
