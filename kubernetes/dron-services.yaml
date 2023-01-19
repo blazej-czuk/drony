@@ -62,18 +62,20 @@ spec:
       port: 3000
       targetPort: http-dron4-svc
 
----
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: dron5
-spec:
-  type: ClusterIP
-  selector:
-    app: dron5
-  ports:
-    - name: http
-      protocol: TCP
-      port: 3000
-      targetPort: http-dron5-svc
+# Dodanie drona5 aby wysyłał rozkazy do drona4
+# ---
+
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: dron5
+# spec:
+#   type: ClusterIP
+#   selector:
+#     app: dron5
+#   ports:
+#     - name: http
+#       protocol: TCP
+#       port: 3000
+#       targetPort: http-dron5-svc

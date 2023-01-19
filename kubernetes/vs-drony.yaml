@@ -1,22 +1,39 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: vs-dron2
+  name: vs-dron1
   namespace: default
 spec:
   hosts:
-  - dron4
+  - dron3
   http:
   - match:
-    # - headers:  # pozwólmy się pingować tylko dronowi 3
-    #     dron:
-    #       exact: dron3
-    #   uri:
-    - uri: 
-       prefix: "/ping-me" 
+    - headers:  # pozwólmy się pingować tylko dronowi 1
+        dron:
+          exact: dron1
+      uri:
+        prefix: "/ping-me" 
     route:
     - destination:
-        host: dron4
+        host: dron3
+  - match:
+    - headers:  # pozwólmy się pingować tylko dronowi 2
+        dron:
+          exact: dron2
+      uri:
+        prefix: "/ping-me" 
+    route:
+    - destination:
+        host: dron3
+  - match:
+    - headers:  # pozwólmy się pingować tylko dronowi 4
+        dron:
+          exact: dron4
+      uri:
+        prefix: "/ping-me" 
+    route:
+    - destination:
+        host: dron3
 
 # --- 
 

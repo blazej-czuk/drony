@@ -1,26 +1,57 @@
-1. Run Kiali
+# Run Kiali
     kubectl port-forward svc/kiali -n istio-system 20001
+    http://127.0.0.1:20001/kiali/console/
 
-# Route to ingress gateway
+# Disable enable drons
+```bash
+# zakomentuj 5 drona    
+
+# Graficzna prezentacja dronów i ich komunikacji (wymiany informacji) między sobą.
+k apply -f deployment.yaml
+k apply -f dron-services.yaml
+k delete -f deployment.yaml 
+k delete -f dron-services.yaml
+```
+    
+# Kontakt z dronami z ziemi
+```bash
 sudo ip route add 10.98.55.0/24 via 10.0.0.11 dev vboxnet0
+k apply -f drony-gateway.yml
+k delete -f drony-gateway.yml
 
+# Chcemy się dostać do kokpitu drona.
 http://kube.home/dron4/
-curl http://kube.home/dron4/siemka
+# Chcemy się przywitać czy wysyłać rozkazy, polecenia
+curl http://kube.home/dron3/siemka
 curl http://kube.home/dron3/version
 
-http://kube.home/dron4/ping-me  ##  działa tylko wewnątrz sieci.
+##  działa tylko wewnątrz sieci.
+http://kube.home/dron4/ping-me  
 
 
-
-# Uruchomienie komunikacji
 watch curl kube.home/dron1/siemka
 watch curl kube.home/dron3/siemka
+```
 
+# Dodanie drona5 aby wysyłał rozkazy do drona4
+```bash
+# odkomentuj serwisy  deployment.yaml i dron-services.yaml
+# i pamiętaj odkomentować komunikację zwrtoną w service/dron3  
 
+k apply -f deployment.yaml
+k apply -f dron-services.yaml
+```
+# Zablokuj możliwość komunikacji z drona5 do drona3
+```bash
+k apply -f vs-drony.yaml
+k delete -f vs-drony.yaml
 
 # Polityki wewnątrz
-kubectl exec dron3-5f74bf9976-knjcl -- curl http://dron1:3000/siemka
+kubectl exec dron1-79f975bfcb-8tpzw -- curl http://dron3:3000/siemka
 
+kubectl exec dron1-79f975bfcb-8tpzw -- curl http://dron2:3000/ping-me
+
+curl http://dron3:3000/ping-me -H "content-type: application/json; charset=utf-8" -H "dron: dron1" --d '{"from": "dron1"}'
 
 
 # Replikacja dronów
@@ -33,5 +64,4 @@ watch -x kubectl get pods
 
 k scale --replicas=1 deployment dron4
 
-# Zmiana konfiguracji komunikacji między dronami
-    k apply -f vs-drony.yaml
+
