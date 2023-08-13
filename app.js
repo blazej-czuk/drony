@@ -32,7 +32,7 @@ function getStyleFromEnv() {
 async function pingDrone(service) {
   while (true) {
     try {
-      await axios.post(`http://${service}:3000/ping-me`, {
+      await axios.post(`http://${service}:${process.env.PORT}/ping-me`, {
         from: process.env.NAME,
         message: `Hello from ${process.env.NAME}`,
       },

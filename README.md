@@ -1,8 +1,8 @@
 # drony
 
 
-docker build -t blazejczuk/drony:headers .
-docker push blazejczuk/drony:headers
+docker build -t blazejczuk/drony:headers-v2 .
+docker push blazejczuk/drony:headers-v2
 
 
 INFO

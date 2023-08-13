@@ -25,9 +25,9 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:headers
+        image: blazejczuk/drony:headers-v2
         ports:
-        - containerPort: 3000
+        - containerPort: 3001
           name: http-dron1-svc
         envFrom:
         - configMapRef:
@@ -38,7 +38,9 @@ spec:
         - name: BG_COLOR
           value: blue
         - name: DRONES
-          value: dron2,dron3,dron4
+          value: dron2,dron4
+        - name: PORT
+          value: "3001"
         resources:
           requests:
             cpu: 100m
@@ -71,9 +73,9 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:headers
+        image: blazejczuk/drony:headers-v2
         ports:
-        - containerPort: 3000
+        - containerPort: 3001
           name: http-dron2-svc
         envFrom:
         - configMapRef:
@@ -85,6 +87,8 @@ spec:
           value: red
         - name: DRONES
           value: dron1,dron3,dron4
+        - name: PORT
+          value: "3001"
         resources:
           requests:
             cpu: 100m
@@ -117,9 +121,9 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:headers
+        image: blazejczuk/drony:headers-v2
         ports:
-        - containerPort: 3000
+        - containerPort: 3001
           name: http-dron3-svc
         envFrom:
         - configMapRef:
@@ -130,7 +134,9 @@ spec:
         - name: BG_COLOR
           value: orange
         - name: DRONES
-          value: dron1,dron2,dron4
+          value: dron2,dron4,dron5
+        - name: PORT
+          value: "3001"
         resources:
           requests:
             cpu: 100m
@@ -163,9 +169,9 @@ spec:
         runAsUser: 1000
       containers:
       - name: server
-        image: blazejczuk/drony:headers
+        image: blazejczuk/drony:headers-v2
         ports:
-        - containerPort: 3000
+        - containerPort: 3001
           name: http-dron4-svc
         envFrom:
         - configMapRef:
@@ -177,6 +183,8 @@ spec:
           value: green
         - name: DRONES
           value: dron1,dron2,dron3
+        - name: PORT
+          value: "3001"
         resources:
           requests:
             cpu: 100m
@@ -188,51 +196,53 @@ spec:
 
 
 
-# ---
+---
 
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: dron5
-# spec:
-#   selector:
-#     matchLabels:
-#       app: dron5
-#   template:
-#     metadata:
-#       labels:
-#         app: dron5
-#         version: 0.1.0-dron
-#     spec:
-#       serviceAccountName: default
-#       terminationGracePeriodSeconds: 5
-#       securityContext:
-#         fsGroup: 1000
-#         runAsGroup: 1000
-#         runAsNonRoot: true
-#         runAsUser: 1000
-#       containers:
-#       - name: server
-#         image: blazejczuk/drony:headers  ## BEZ pingowania
-#         ports:
-#         - containerPort: 3000
-#           name: http-dron5-svc
-#         envFrom:
-#         - configMapRef:
-#             name: special-config
-#         env:
-#         - name: NAME
-#           value: dron5
-#         - name: BG_COLOR
-#           value: yellow
-#         - name: DRONES
-#           value: dron3
-#         resources:
-#           requests:
-#             cpu: 100m
-#             memory: 64Mi
-#           limits:
-#             cpu: 200m
-#             memory: 128Mi
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dron5
+spec:
+  selector:
+    matchLabels:
+      app: dron5
+  template:
+    metadata:
+      labels:
+        app: dron5
+        version: 0.1.0-dron
+    spec:
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 5
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+      - name: server
+        image: blazejczuk/drony:headers-v2  ## BEZ pingowania
+        ports:
+        - containerPort: 3001
+          name: http-dron5-svc
+        envFrom:
+        - configMapRef:
+            name: special-config
+        env:
+        - name: NAME
+          value: dron5
+        - name: BG_COLOR
+          value: yellow
+        - name: DRONES
+          value: dron3
+        - name: PORT
+          value: "3001"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 64Mi
+          limits:
+            cpu: 200m
+            memory: 128Mi
 
 # image: blazejczuk/drony:0.7  ## BEZ pingowania

@@ -35,7 +35,7 @@ watch curl kube.home/dron3/siemka
 
 # Dodanie drona5 aby wysyłał rozkazy do drona4
 ```bash
-# odkomentuj serwisy  deployment.yaml i dron-services.yaml
+# odkomentuj workload dron5 w deployment.yaml i service dron5 w dron-services.yaml
 # i pamiętaj odkomentować komunikację zwrtoną w service/dron3  
 
 k apply -f deployment.yaml
