@@ -1,34 +1,51 @@
 
 # Copyright
-
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron1
+  labels:
+    app: dron1
+    service: dron1
+spec:
+  ports:
+  - port: 3001
+    name: http
+  selector:
+    app: dron1
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dron1
+  labels:
+    account: dron1
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dron1
+  labels:
+    app: dron1
+    version: 0.1.0-dron
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: dron1
+      version: 0.1.0-dron
   template:
     metadata:
       labels:
         app: dron1
         version: 0.1.0-dron
     spec:
-      serviceAccountName: default
-      terminationGracePeriodSeconds: 5
-      securityContext:
-        fsGroup: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
+      serviceAccountName: dron1
       containers:
-      - name: server
+      - name: dron1
         image: blazejczuk/drony:headers-v2
         ports:
         - containerPort: 3001
-          name: http-dron1-svc
         envFrom:
         - configMapRef:
             name: special-config
@@ -48,37 +65,53 @@ spec:
           limits:
             cpu: 200m
             memory: 128Mi
-
+---          
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron2
+  labels:
+    app: dron2
+    service: dron2
+spec:
+  ports:
+  - port: 3001
+    name: http
+  selector:
+    app: dron2
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dron2
+  labels:
+    account: dron2
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dron2
+  labels:
+    app: dron2
+    version: 0.1.0-dron
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: dron2
+      version: 0.1.0-dron
   template:
     metadata:
       labels:
         app: dron2
         version: 0.1.0-dron
     spec:
-      serviceAccountName: default
-      terminationGracePeriodSeconds: 5
-      securityContext:
-        
-        # fsGroup: 1000
-        # runAsGroup: 1000
-        # runAsNonRoot: true
-        runAsUser: 0
-        
+      serviceAccountName: dron2
       containers:
-      - name: server
+      - name: dron2
         image: blazejczuk/drony:headers-v2
         ports:
         - containerPort: 3001
-          name: http-dron2-svc
         envFrom:
         - configMapRef:
             name: special-config
@@ -99,34 +132,53 @@ spec:
             cpu: 200m
             memory: 128Mi
 
+---          
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron3
+  labels:
+    app: dron3
+    service: dron3
+spec:
+  ports:
+  - port: 3001
+    name: http
+  selector:
+    app: dron3
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dron3
+  labels:
+    account: dron3
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dron3
+  labels:
+    app: dron3
+    version: 0.1.0-dron
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: dron3
+      version: 0.1.0-dron
   template:
     metadata:
       labels:
         app: dron3
         version: 0.1.0-dron
     spec:
-      serviceAccountName: default
-      terminationGracePeriodSeconds: 5
-      securityContext:
-        fsGroup: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
+      serviceAccountName: dron3
       containers:
-      - name: server
+      - name: dron3
         image: blazejczuk/drony:headers-v2
         ports:
         - containerPort: 3001
-          name: http-dron3-svc
         envFrom:
         - configMapRef:
             name: special-config
@@ -136,7 +188,7 @@ spec:
         - name: BG_COLOR
           value: orange
         - name: DRONES
-          value: dron2,dron4,dron5
+          value: dron2,dron4
         - name: PORT
           value: "3001"
         resources:
@@ -147,34 +199,52 @@ spec:
             cpu: 200m
             memory: 128Mi
 
+---          
+apiVersion: v1
+kind: Service
+metadata:
+  name: dron4
+  labels:
+    app: dron4
+    service: dron4
+spec:
+  ports:
+  - port: 3001
+    name: http
+  selector:
+    app: dron4
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dron4
+  labels:
+    account: dron4
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dron4
+  labels:
+    app: dron4
+    version: 0.1.0-dron
 spec:
   selector:
     matchLabels:
       app: dron4
+      version: 0.1.0-dron
   template:
     metadata:
       labels:
         app: dron4
         version: 0.1.0-dron
     spec:
-      serviceAccountName: default
-      terminationGracePeriodSeconds: 5
-      securityContext:
-        fsGroup: 1000
-        runAsGroup: 1000
-        runAsNonRoot: true
-        runAsUser: 1000
+      serviceAccountName: dron4
       containers:
-      - name: server
+      - name: dron4
         image: blazejczuk/drony:headers-v2
         ports:
         - containerPort: 3001
-          name: http-dron4-svc
         envFrom:
         - configMapRef:
             name: special-config
@@ -214,7 +284,7 @@ spec:
 #         app: dron5
 #         version: 0.1.0-dron
 #     spec:
-#       serviceAccountName: default
+#       serviceAccountName: dron5
 #       terminationGracePeriodSeconds: 5
 #       securityContext:
 #         fsGroup: 1000
